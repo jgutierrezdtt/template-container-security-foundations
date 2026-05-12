@@ -2,17 +2,21 @@
 
 ## Objetivo de aprendizaje
 
-Definir una imagen más segura y reducir privilegios innecesarios.
+Ejecutar el contenedor como root amplía el impacto de cualquier compromiso del proceso. Este paso reduce privilegios en runtime.
+
+## Que vas a cambiar y por que
+
+Crea un usuario dedicado y cambia el `Dockerfile` para que la aplicación se ejecute con ese usuario no privilegiado.
 
 ## Archivo y seccion que debes modificar
 
 - Archivo objetivo: `Dockerfile`.
-- Seccion donde aplicar el cambio: instrucciones principales del contenedor.
-- Resultado esperado: el repositorio incorpora el control de este paso de forma legible y revisable.
+- Aplícalo en la parte del archivo que corresponde al título del paso.
+- Si el archivo aún no existe, créalo con este contenido inicial y luego evoluciona desde ahí en los siguientes pasos.
 
-## Cambio que debes introducir
+## Cambio base recomendado
 
-Copia este bloque como base y adáptalo al contexto real del repositorio:
+Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo al contexto del repositorio.
 
 ```dockerfile
 FROM python:3.11-slim
@@ -25,16 +29,23 @@ CMD ["python", "app.py"]
 
 ## Como adaptarlo correctamente
 
-- Si el paso es sobre imagen base segura, evita tags genéricos como latest.
-- Si el paso es sobre secretos, no uses ARG o ENV para credenciales persistentes.
+- Crea el usuario después de copiar dependencias y antes del `CMD` final.
+- Asegúrate de que el directorio de trabajo sigue siendo accesible para ese usuario.
+- No mezcles este paso con hardening de imagen base; aquí el foco es el usuario efectivo del proceso.
+
+## Que deberia verse al terminar
+
+- El `Dockerfile` crea un usuario propio.
+- La imagen termina con `USER appuser` o equivalente.
+- No hay un retorno posterior a root en líneas siguientes.
 
 ## Que valida el workflow automaticamente
 
 - `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-05.py` comprueba el archivo y los marcadores esperados de este paso.
-- Debe encontrar el marcador `FROM python:3.11-slim` en `Dockerfile`.
-- Debe encontrar el marcador `WORKDIR /app` en `Dockerfile`.
-- Debe encontrar el marcador `USER appuser` en `Dockerfile`.
+- `scripts/validate-step-05.py` comprueba este paso contra el archivo configurado.
+- El workflow busca `FROM python:3.11-slim` dentro de `Dockerfile`.
+- El workflow busca `WORKDIR /app` dentro de `Dockerfile`.
+- El workflow busca `USER appuser` dentro de `Dockerfile`.
 
 ## Criterio de finalizacion
 

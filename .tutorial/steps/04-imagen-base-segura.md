@@ -2,39 +2,47 @@
 
 ## Objetivo de aprendizaje
 
-Definir una imagen más segura y reducir privilegios innecesarios.
+Este paso introduce un control de Container Security y debe dejar un cambio comprensible en Dockerfile.
+
+## Que vas a cambiar y por que
+
+Actualiza Dockerfile para que el control de "imagen base segura" quede explícito y revisable.
 
 ## Archivo y seccion que debes modificar
 
 - Archivo objetivo: `Dockerfile`.
-- Seccion donde aplicar el cambio: instrucciones principales del contenedor.
-- Resultado esperado: el repositorio incorpora el control de este paso de forma legible y revisable.
+- Aplícalo en la parte del archivo que corresponde al título del paso.
+- Si el archivo aún no existe, créalo con este contenido inicial y luego evoluciona desde ahí en los siguientes pasos.
 
-## Cambio que debes introducir
+## Cambio base recomendado
 
-Copia este bloque como base y adáptalo al contexto real del repositorio:
+Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo al contexto del repositorio.
 
 ```dockerfile
 FROM python:3.11-slim
 WORKDIR /app
-COPY . .
-RUN adduser --disabled-password --gecos "" appuser
 USER appuser
-CMD ["python", "app.py"]
 ```
 
 ## Como adaptarlo correctamente
 
-- Si el paso es sobre imagen base segura, evita tags genéricos como latest.
-- Si el paso es sobre secretos, no uses ARG o ENV para credenciales persistentes.
+- Mantén el cambio pequeño y centrado en una sola idea por paso.
+- Usa nombres claros para secciones, reglas o jobs.
+- Evita añadir configuración que no esté relacionada con el objetivo del paso.
+
+## Que deberia verse al terminar
+
+- La intención del cambio se entiende leyendo el archivo.
+- El archivo muestra el control sin depender de comentarios ambiguos.
+- Los marcadores esperados del paso aparecen de forma natural en la configuración.
 
 ## Que valida el workflow automaticamente
 
 - `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-04.py` comprueba el archivo y los marcadores esperados de este paso.
-- Debe encontrar el marcador `FROM python:3.11-slim` en `Dockerfile`.
-- Debe encontrar el marcador `WORKDIR /app` en `Dockerfile`.
-- Debe encontrar el marcador `USER appuser` en `Dockerfile`.
+- `scripts/validate-step-04.py` comprueba este paso contra el archivo configurado.
+- El workflow busca `FROM python:3.11-slim` dentro de `Dockerfile`.
+- El workflow busca `WORKDIR /app` dentro de `Dockerfile`.
+- El workflow busca `USER appuser` dentro de `Dockerfile`.
 
 ## Criterio de finalizacion
 

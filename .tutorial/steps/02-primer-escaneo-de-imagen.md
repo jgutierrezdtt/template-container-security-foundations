@@ -2,41 +2,49 @@
 
 ## Objetivo de aprendizaje
 
-Automatizar el análisis de vulnerabilidades del contenedor.
+Este paso introduce un control de Container Security y debe dejar un cambio comprensible en .github/workflows/container-security.yml.
+
+## Que vas a cambiar y por que
+
+Actualiza .github/workflows/container-security.yml para que el control de "primer escaneo de imagen" quede explícito y revisable.
 
 ## Archivo y seccion que debes modificar
 
 - Archivo objetivo: `.github/workflows/container-security.yml`.
-- Seccion donde aplicar el cambio: workflow de build y escaneo.
-- Resultado esperado: el repositorio incorpora el control de este paso de forma legible y revisable.
+- Aplícalo en la parte del archivo que corresponde al título del paso.
+- Si el archivo aún no existe, créalo con este contenido inicial y luego evoluciona desde ahí en los siguientes pasos.
 
-## Cambio que debes introducir
+## Cambio base recomendado
 
-Copia este bloque como base y adáptalo al contexto real del repositorio:
+Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo al contexto del repositorio.
 
 ```yaml
 name: Container Security
-on:
-  pull_request:
-  push:
-jobs:
-  trivy:
-    runs-on: ubuntu-latest
+pull_request:
+push:
+trivy:
 ```
 
 ## Como adaptarlo correctamente
 
-- Separa build y scan si necesitas depurar fallos con claridad.
-- Usa una sola herramienta de ejemplo por paso para que el aprendizaje sea incremental.
+- Mantén el cambio pequeño y centrado en una sola idea por paso.
+- Usa nombres claros para secciones, reglas o jobs.
+- Evita añadir configuración que no esté relacionada con el objetivo del paso.
+
+## Que deberia verse al terminar
+
+- La intención del cambio se entiende leyendo el archivo.
+- El archivo muestra el control sin depender de comentarios ambiguos.
+- Los marcadores esperados del paso aparecen de forma natural en la configuración.
 
 ## Que valida el workflow automaticamente
 
 - `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-02.py` comprueba el archivo y los marcadores esperados de este paso.
-- Debe encontrar el marcador `name: Container Security` en `.github/workflows/container-security.yml`.
-- Debe encontrar el marcador `pull_request:` en `.github/workflows/container-security.yml`.
-- Debe encontrar el marcador `push:` en `.github/workflows/container-security.yml`.
-- Debe encontrar el marcador `trivy:` en `.github/workflows/container-security.yml`.
+- `scripts/validate-step-02.py` comprueba este paso contra el archivo configurado.
+- El workflow busca `name: Container Security` dentro de `.github/workflows/container-security.yml`.
+- El workflow busca `pull_request:` dentro de `.github/workflows/container-security.yml`.
+- El workflow busca `push:` dentro de `.github/workflows/container-security.yml`.
+- El workflow busca `trivy:` dentro de `.github/workflows/container-security.yml`.
 
 ## Criterio de finalizacion
 
