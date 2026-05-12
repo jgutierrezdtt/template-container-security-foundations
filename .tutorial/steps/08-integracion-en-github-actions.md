@@ -2,34 +2,44 @@
 
 ## Objetivo de aprendizaje
 
-En este paso vas a practicar un control de Container Security para entender que decision de configuracion aplicar y por que.
+Automatizar el análisis de vulnerabilidades del contenedor.
 
-## Que debe hacer la persona participante
+## Archivo y seccion que debes modificar
 
-1. Revisar el contexto del control en este paso.
-2. Editar la configuracion esperada en `.github/workflows/container-security.yml`.
-3. Guardar y subir el cambio en el flujo normal del repositorio (commit/push o PR).
+- Archivo objetivo: `.github/workflows/container-security.yml`.
+- Seccion donde aplicar el cambio: workflow de build y escaneo.
+- Resultado esperado: el repositorio incorpora el control de este paso de forma legible y revisable.
 
-## Que configurar exactamente
+## Cambio que debes introducir
 
-- Campo o seccion objetivo: relacionado con "Integracion en github actions".
-- Ubicacion principal: `.github/workflows/container-security.yml`.
-- Resultado esperado: que la configuracion refleje el control del paso 8.
+Copia este bloque como base y adáptalo al contexto real del repositorio:
 
-## Checklist de configuracion
+```yaml
+name: Container Security
+on:
+  pull_request:
+  push:
+jobs:
+  trivy:
+    runs-on: ubuntu-latest
+```
 
-- El cambio del paso 8 esta presente en `.github/workflows/container-security.yml`.
-- El cambio es coherente con el objetivo del paso.
-- El repositorio incluye la evidencia de progreso para este paso.
+## Como adaptarlo correctamente
 
-## Validacion automatica (sin ejecucion manual)
+- Separa build y scan si necesitas depurar fallos con claridad.
+- Usa una sola herramienta de ejemplo por paso para que el aprendizaje sea incremental.
 
-- `validate-steps.yml` se ejecuta automaticamente por eventos `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-08.py` valida que el control de este paso esta aplicado.
-- El estado de progreso se refleja en `.tutorial/state.json`.
+## Que valida el workflow automaticamente
+
+- `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
+- `scripts/validate-step-08.py` comprueba el archivo y los marcadores esperados de este paso.
+- Debe encontrar el marcador `name: Container Security` en `.github/workflows/container-security.yml`.
+- Debe encontrar el marcador `pull_request:` en `.github/workflows/container-security.yml`.
+- Debe encontrar el marcador `push:` en `.github/workflows/container-security.yml`.
+- Debe encontrar el marcador `trivy:` en `.github/workflows/container-security.yml`.
 
 ## Criterio de finalizacion
 
-El paso 8 se marca como completado cuando GitHub Actions reporta exito para `validate-step-08.py`.
+El paso 8 queda completado cuando el workflow de GitHub Actions valida este cambio sin errores.
 
 Siguiente paso: Paso 9.
