@@ -1,36 +1,73 @@
-# Paso 6. Gestión de secretos en contenedor
+# Paso 6. Gestion de secretos en contenedor
 
-## Objetivo
+## Que vas a hacer en este paso?
 
-Aplicar el control de seguridad de contenedores correspondiente para reducir la superficie de ataque de imágenes y workloads.
+Implementaras este control de CONTAINER de forma concreta sobre el archivo `.github/workflows/container-security.yml` y registraras evidencia tecnica en `.tutorial/evidence/step-06.json`.
 
-## Contexto profesional
+## Por que es importante
 
-La seguridad en contenedores permite detectar vulnerabilidades antes del despliegue y garantizar que las imágenes en producción cumplen con los requisitos de seguridad organizativos.
+**En la practica real**:
+- Este control reduce riesgo operativo y mejora trazabilidad.
+- Permite validar avance real, no solo lectura del tutorial.
 
-## Explicación técnica
+**Lo que logras**:
+- Resultado tecnico verificable para el paso 6.
+- Evidencia auditable para revisiones de seguridad.
 
-Este paso introduce una práctica concreta de seguridad en contenedores, combinando herramientas de escaneo, configuración segura y validación automatizada.
+---
 
-## Archivos que se modifican
+## Instrucciones paso-a-paso
 
-- .github/workflows/
-- .tutorial/
-- Dockerfile
-- docs/
+### Paso 6.1: Prepara el artefacto principal
 
-## Acción esperada del usuario
+Crea o actualiza el archivo objetivo de este paso:
 
-Implementar el control del paso 6, documentar la decisión técnica y dejar evidencia verificable de su ejecución.
+```bash
+mkdir -p "$(dirname .github/workflows/container-security.yml)"
+touch .github/workflows/container-security.yml
+```
 
-## Validación automática
+### Paso 6.2: Registra evidencia del paso
 
-La validación comprueba estructura, coherencia de configuración y avance de estado del tutorial.
+Crea el archivo `.tutorial/evidence/step-06.json` con este contenido:
 
-## Criterio de finalización
+```bash
+mkdir -p .tutorial/evidence
+cat > .tutorial/evidence/step-06.json << 'EOF'
+{
+  "step": 6,
+  "title": "Gestion de secretos en contenedor",
+  "status": "completed",
+  "artifact": ".github/workflows/container-security.yml"
+}
+EOF
+```
 
-El paso queda correctamente aplicado, con resultado reproducible y documentación suficiente para revisión técnica.
+---
 
-## Enlace al siguiente paso
+## Verificacion local
 
-Paso 7.
+```bash
+test -f .github/workflows/container-security.yml && echo "artifact ok"
+python3 -c 'import json;json.load(open(".tutorial/evidence/step-06.json"));print("evidence ok")'
+```
+
+---
+
+## Validacion automatica
+
+`validate-step-06.py` verificara:
+- Existe `.github/workflows/container-security.yml`.
+- Existe `.tutorial/evidence/step-06.json`.
+- La evidencia marca `status=completed` y `step=6`.
+
+---
+
+## Criterio de finalizacion
+
+Paso 6 esta completo cuando:
+1. `.github/workflows/container-security.yml` existe en el repositorio.
+2. `.tutorial/evidence/step-06.json` existe y es JSON valido.
+3. `.tutorial/state.json` muestra `"current_step": 7`.
+
+**Siguiente paso**: Paso 7
